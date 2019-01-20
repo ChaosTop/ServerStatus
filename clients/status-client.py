@@ -1,4 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
+# Update by ImYrS https://github.com/ImYrS
+# Date 2019.1.21
 
 SERVER = "127.0.0.1"
 PORT = PORT
