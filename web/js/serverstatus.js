@@ -73,11 +73,61 @@ function bytesToSize(bytes, precision, si)
 
 function uptime() {
 	$.getJSON("json/stats.json", function(result) {
+      
+      var shstr = '<div class="col-lg-4 col-md-4 col-sm-4">'+
+                       ' <div class="panel panel-block panel-block-sm panel-location">'+
+                            '<div class="location-header">'+
+
+                               ' <h3 class="h4"><img src="img/clients/@location.png"> @name <small>@type</small></h3>'+
+                             '   <i class="zmdi zmdi-check-circle @online"></i>'+
+                         '   </div>'+
+                          '  <div class="location-progress">'+
+                          '      <div class="progress progress-sm">'+
+                             '       <div class="progress-bar" style="width: @load%;"></div>'+
+                             '   </div>'+
+                          '  </div>'+
+                           ' <ul class="location-info list-styled">'+
+                           '     <li><span class="list-label">Network @network_rxandnetwork_tx</li>'+
+                           '     <li><span class="list-label">负载状态:</span> @load%</li>'+
+                         '   </ul>'+
+                      '  </div>'+
+                   ' </div>';
+      
+      var shinnerhtml='';
+      
+      
 		$("#loading-notice").remove();
 		if(result.reload)
 			setTimeout(function() { location.reload(true) }, 1000);
 
 		for (var i = 0; i < result.servers.length; i++) {
+          
+          //----kaishi
+          
+          // Network
+				var newnetstr = "";
+				if(result.servers[i].network_rx < 1000)
+					newnetstr += result.servers[i].network_rx.toFixed(0) + "B";
+				else if(result.servers[i].network_rx < 1000*1000)
+					newnetstr += (result.servers[i].network_rx/1000).toFixed(0) + "K";
+				else
+					newnetstr += (result.servers[i].network_rx/1000/1000).toFixed(1) + "M";
+				newnetstr += " | "
+				if(result.servers[i].network_tx < 1000)
+					newnetstr += result.servers[i].network_tx.toFixed(0) + "B";
+				else if(result.servers[i].network_tx < 1000*1000)
+					newnetstr += (result.servers[i].network_tx/1000).toFixed(0) + "K";
+				else
+					newnetstr += (result.servers[i].network_tx/1000/1000).toFixed(1) + "M";
+          
+          shinnerhtml+=shstr.replace("@name",result.servers[i].name).replace("@network_rxandnetwork_tx",newnetstr).replace("@type",result.servers[i].type).replace("@online",result.servers[i].online4?'text-success':'text-error').replace("@location",result.servers[i].location).replace("@load",result.servers[i].load).replace("@load",result.servers[i].load);
+          
+          
+          
+          //----jieshu
+          
+          
+          
 			var TableRow = $("#servers tr#r" + i);
 			var ExpandRow = $("#servers #rt" + i);
 			var hack; // fuck CSS for making me do this
@@ -118,10 +168,10 @@ function uptime() {
 			// Online4
 			if (result.servers[i].online4) {
 				TableRow.children["online4"].children[0].children[0].className = "progress-bar progress-bar-success";
-				TableRow.children["online4"].children[0].children[0].innerHTML = "<small>开启</small>";
+				TableRow.children["online4"].children[0].children[0].innerHTML = "<small>运行中</small>";
 			} else {
 				TableRow.children["online4"].children[0].children[0].className = "progress-bar progress-bar-danger";
-				TableRow.children["online4"].children[0].children[0].innerHTML = "<small>关闭</small>";
+				TableRow.children["online4"].children[0].children[0].innerHTML = "<small>维护中</small>";
 			}
 
 			// Online6
@@ -152,13 +202,13 @@ function uptime() {
 					TableRow.children["traffic"].innerHTML = "–";
 					TableRow.children["cpu"].children[0].children[0].className = "progress-bar progress-bar-danger";
 					TableRow.children["cpu"].children[0].children[0].style.width = "100%";
-					TableRow.children["cpu"].children[0].children[0].innerHTML = "<small>关闭</small>";
+					TableRow.children["cpu"].children[0].children[0].innerHTML = "<small>维护中</small>";
 					TableRow.children["memory"].children[0].children[0].className = "progress-bar progress-bar-danger";
 					TableRow.children["memory"].children[0].children[0].style.width = "100%";
-					TableRow.children["memory"].children[0].children[0].innerHTML = "<small>关闭</small>";
+					TableRow.children["memory"].children[0].children[0].innerHTML = "<small>维护中</small>";
 					TableRow.children["hdd"].children[0].children[0].className = "progress-bar progress-bar-danger";
 					TableRow.children["hdd"].children[0].children[0].style.width = "100%";
-					TableRow.children["hdd"].children[0].children[0].innerHTML = "<small>关闭</small>";
+					TableRow.children["hdd"].children[0].children[0].innerHTML = "<small>维护中</small>";
 					if(ExpandRow.hasClass("in")) {
 						ExpandRow.collapse("hide");
 					}
@@ -267,7 +317,8 @@ function uptime() {
 				}
 			}
 		};
-
+      console.log(shinnerhtml);
+$('#cards').html(shinnerhtml);
 		d = new Date(result.updated*1000);
 		error = 0;
 	}).fail(function(update_error) {

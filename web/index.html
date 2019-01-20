@@ -1,80 +1,140 @@
-<!DOCTYPE html>
+﻿<!doctype html>
 <html>
-	<head>
-		<title>逗比云监控</title>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="云监控">
-		<meta name="author" content="BotoX">
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
-		<link rel="stylesheet" href="css/light.css">
-	</head>
-	<body>
-		<div role="navigation" class="navbar navbar-inverse navbar-fixed-top navbar-top">
-			<div class="navbar-inner">
-				<div class="container">
-					<div class="navbar-header">
-						<p class="navbar-brand">逗比云监控</p>
-					</div>
-					<div class="navbar-collapse collapse">
-					</div><!--/.nav-collapse -->
-				</div>
-			</div>
-		</div>
-		<div class="path-announcement navbar navbar-default navbar-fixed-top">
-            <div class="path-announcement2 container">
-              <!-- 顶部公告栏 -->
-                <p><i class="fa fa-volume-down"></i>顶部公告栏</p>
-              <!-- 顶部公告栏 -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Status Page - PRIME</title>
+    <!-- Fix chrome language detection -->
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="Content-Language" content="zh" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Styles -->
+    <link href="css/core.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/panel.css" rel="stylesheet">
+    <link href="css/global.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'icons';
+            src: url('fonts/icons/icons.eot');
+            src: url('fonts/icons/icons.eot') format('embedded-opentype'), url('fonts/icons/icons.ttf') format('truetype'), url('fonts/icons/icons.woff') format('woff'), url('fonts/icons/icons.svg') format('svg');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="/js/selectivizr-min.js"></script>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="body">
+<header class="header-four">
+    <section class="nav_section" id="main-menu">
+        <div class="container">
+            <nav class="navbar-expand-md navbar-dark">
+              <!-- Brand -->
+                <div class="navbar-brand">PRIME</div>
+              <!-- Toggler/collapsibe Button -->
+              <button class="navbar-toggler  float-right" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <!-- Navbar links -->
+              <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav ml-auto main-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="https://imyrs.cn">Blog</a>
+                  </li>
+                </ul>
+              </div> 
+            </nav>
+        </div>
+    </section>
+
+    <!--主菜单结束-->
+</header>
+        <div class="banner-area banner-image" id="banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <div class="banner-text">
+                            <div class="banner-table-cell text-center">
+                                <h1><span>Status Page</span></h1>
+                              	<h3><span><font color=white>This page shows servers status in PRIME Project</font></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-		
-		<div class="container content">
+        <div class="container">
 			<div id="loading-notice">
-				<noscript>
-					<div class="alert alert-danger" style="text-align: center;">
-						<strong>Enable JavaScript</strong> you fucking autist neckbeard, it's not gonna hurt you.
-					</div>
-				</noscript>
+				
 				<div class="progress progress-striped active">
-					<div class="progress-bar progress-bar-warning" style="width: 100%;">加载中...</div>
+					<div class="progress-bar progress-bar-warning" style="width: 100%;">Loading...</div>
 				</div>
 				<div style="text-align: center;">
-					如果出现此消息，请确保您已启用Javascript! <br />否则云监控主服务(服务端) 未启动或已关闭.
+					Please open Javascript!<br />Or Status service was shutdown.
 				</div>
 				<p></p>
 			</div>
-			<table class="table table-striped table-condensed table-hover">
+        <section id="no-more-tables">	
+			<table class="table table-striped text-center">
+              
 				<thead>
 				<tr>
-					<th id="status4" style="text-align: center;">IPv4</th>
-					<th id="name">节点名</th>
-					<th id="type">虚拟化</th>
-					<th id="location">位置</th>
-					<th id="uptime">在线时间</th>
-					<th id="load">负载</th>
-					<th id="network">网络(B/s) ↓|↑</th>
-					<th id="traffic">流量(B) ↓|↑</th>
-					<th id="cpu">CPU</th>
-					<th id="ram">内存</th>
-					<th id="hdd">硬盘</th>
+					<th class="text-center" id="status4" style="text-align: center;">运行状态</th>
+					<th class="text-center" id="name">节点名</th>
+					<th class="text-center" id="type">类型</th>
+					<th class="text-center" id="location">服务器位置</th>
+					<th class="text-center" id="uptime">在线时间</th>
+					<th class="text-center" id="load">负载</th>
+					<th class="text-center" id="network">网络(B/s) ↓|↑</th>
+					<th class="text-center" id="traffic">流量(B) ↓|↑</th>
+					<th class="text-center" id="cpu">CPU</th>
+					<th class="text-center" id="ram">RAM</th>
+					<th class="text-center" id="hdd">ROM</th>
 				</tr>
 				</thead>
+				
 				<tbody id="servers">
 				<!-- Servers here \o/ -->
 				</tbody>
 			</table>
-			<br />
-			<div id="updated" style="margin-left: 5px;">Updating...</div>
-		</div>
+  		</section>
 
-		<div class="container">
-			<p style="text-align: center; font-size: 10px;"><a target="_blank"href="https://github.com/ToyoDAdoubiBackup/ServerStatus-Toyo">ServerStatus-Toyo</a> · <a target="_blank" href="https://doub.io/shell-jc3/">搭建教程</a></p>
 		</div>
-		<script src="js/jquery-1.10.2.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/serverstatus.js"></script>
-	</body>
+      
+      
+
+        <div class="page-section">
+            <div class="container">
+                <div id='cards' class="row">
+                    
+    
+                </div>
+                <div id="updated" style="margin-left: 5px;">Updating...</div>
+            </div>
+
+        </div>
+
+    <!-- Footer -->
+    <div class="banner-table-cell text-center">
+        <p>Copyright &copy; 2019 PRIME Team, All rights reserved.</p>
+    </div>
+
+    <!-- Scripts -->
+   
+
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/serverstatus.js"></script>
+</body>
+
 </html>
