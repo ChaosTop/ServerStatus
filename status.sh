@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+ï»¿#!/usr/bin/env bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
@@ -24,11 +24,11 @@ server_log_file="/tmp/serverstatus_server.log"
 jq_file="${file}/jq"
 
 Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
-Info="${Green_font_prefix}[ĞÅÏ¢]${Font_color_suffix}"
-Error="${Red_font_prefix}[´íÎó]${Font_color_suffix}"
-Tip="${Green_font_prefix}[×¢Òâ]${Font_color_suffix}"
+Info="${Green_font_prefix}[ä¿¡æ¯]${Font_color_suffix}"
+Error="${Red_font_prefix}[é”™è¯¯]${Font_color_suffix}"
+Tip="${Green_font_prefix}[æ³¨æ„]${Font_color_suffix}"
 
-#¼ì²éÏµÍ³
+#æ£€æŸ¥ç³»ç»Ÿ
 check_sys(){
 	if [[ -f /etc/redhat-release ]]; then
 		release="centos"
@@ -48,12 +48,12 @@ check_sys(){
 	bit=`uname -m`
 }
 check_installed_server_status(){
-	[[ ! -e "${server_file}/sergate" ]] && echo -e "${Error} ServerStatus ·şÎñ¶ËÃ»ÓĞ°²×°£¬Çë¼ì²é !" && exit 1
+	[[ ! -e "${server_file}/sergate" ]] && echo -e "${Error} ServerStatus æœåŠ¡ç«¯æ²¡æœ‰å®‰è£…ï¼Œè¯·æ£€æŸ¥ !" && exit 1
 }
 check_installed_client_status(){
 	if [[ ! -e "${client_file}/status-client.py" ]]; then
 		if [[ ! -e "${file}/status-client.py" ]]; then
-			echo -e "${Error} ServerStatus ¿Í»§¶ËÃ»ÓĞ°²×°£¬Çë¼ì²é !" && exit 1
+			echo -e "${Error} ServerStatus å®¢æˆ·ç«¯æ²¡æœ‰å®‰è£…ï¼Œè¯·æ£€æŸ¥ !" && exit 1
 		fi
 	fi
 }
@@ -66,13 +66,13 @@ check_pid_client(){
 Download_Server_Status_server(){
 	cd "/tmp"
 	wget -N --no-check-certificate "https://github.com/ImYrS/ServerStatu/archive/master.zip"
-	[[ ! -e "master.zip" ]] && echo -e "${Error} ServerStatus ·şÎñ¶ËÏÂÔØÊ§°Ü !" && exit 1
+	[[ ! -e "master.zip" ]] && echo -e "${Error} ServerStatus æœåŠ¡ç«¯ä¸‹è½½å¤±è´¥ !" && exit 1
 	unzip master.zip
 	rm -rf master.zip
-	[[ ! -e "/tmp/ServerStatus-Toyo-master" ]] && echo -e "${Error} ServerStatus ·şÎñ¶Ë½âÑ¹Ê§°Ü !" && exit 1
+	[[ ! -e "/tmp/ServerStatus-Toyo-master" ]] && echo -e "${Error} ServerStatus æœåŠ¡ç«¯è§£å‹å¤±è´¥ !" && exit 1
 	cd "/tmp/ServerStatus-Toyo-master/server"
 	make
-	[[ ! -e "sergate" ]] && echo -e "${Error} ServerStatus ·şÎñ¶Ë±àÒëÊ§°Ü !" && cd "${file_1}" && rm -rf "/tmp/ServerStatus-Toyo-master" && exit 1
+	[[ ! -e "sergate" ]] && echo -e "${Error} ServerStatus æœåŠ¡ç«¯ç¼–è¯‘å¤±è´¥ !" && cd "${file_1}" && rm -rf "/tmp/ServerStatus-Toyo-master" && exit 1
 	cd "${file_1}"
 	[[ ! -e "${file}" ]] && mkdir "${file}"
 	if [[ ! -e "${server_file}" ]]; then
@@ -89,7 +89,7 @@ Download_Server_Status_server(){
 		fi
 	fi
 	if [[ ! -e "${server_file}/sergate" ]]; then
-		echo -e "${Error} ServerStatus ·şÎñ¶ËÒÆ¶¯ÖØÃüÃûÊ§°Ü !"
+		echo -e "${Error} ServerStatus æœåŠ¡ç«¯ç§»åŠ¨é‡å‘½åå¤±è´¥ !"
 		[[ -e "${server_file}/sergate1" ]] && mv "${server_file}/sergate1" "${server_file}/sergate"
 		rm -rf "/tmp/ServerStatus-Toyo-master"
 		exit 1
@@ -101,7 +101,7 @@ Download_Server_Status_server(){
 Download_Server_Status_client(){
 	cd "/tmp"
 	wget -N --no-check-certificate "https://raw.githubusercontent.com/ImYrS/ServerStatus/master/clients/status-client.py"
-	[[ ! -e "status-client.py" ]] && echo -e "${Error} ServerStatus ¿Í»§¶ËÏÂÔØÊ§°Ü !" && exit 1
+	[[ ! -e "status-client.py" ]] && echo -e "${Error} ServerStatus å®¢æˆ·ç«¯ä¸‹è½½å¤±è´¥ !" && exit 1
 	cd "${file_1}"
 	[[ ! -e "${file}" ]] && mkdir "${file}"
 	if [[ ! -e "${client_file}" ]]; then
@@ -116,7 +116,7 @@ Download_Server_Status_client(){
 		fi
 	fi
 	if [[ ! -e "${client_file}/status-client.py" ]]; then
-		echo -e "${Error} ServerStatus ¿Í»§¶ËÒÆ¶¯Ê§°Ü !"
+		echo -e "${Error} ServerStatus å®¢æˆ·ç«¯ç§»åŠ¨å¤±è´¥ !"
 		[[ -e "${client_file}/status-client1.py" ]] && mv "${client_file}/status-client1.py" "${client_file}/status-client.py"
 		rm -rf "/tmp/status-client.py"
 		exit 1
@@ -128,36 +128,36 @@ Download_Server_Status_client(){
 Service_Server_Status_server(){
 	if [[ ${release} = "centos" ]]; then
 		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/service/server_status_server_centos" -O /etc/init.d/status-server; then
-			echo -e "${Error} ServerStatus ·şÎñ¶Ë·şÎñ¹ÜÀí½Å±¾ÏÂÔØÊ§°Ü !" && exit 1
+			echo -e "${Error} ServerStatus æœåŠ¡ç«¯æœåŠ¡ç®¡ç†è„šæœ¬ä¸‹è½½å¤±è´¥ !" && exit 1
 		fi
 		chmod +x /etc/init.d/status-server
 		chkconfig --add status-server
 		chkconfig status-server on
 	else
 		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/service/server_status_server_debian" -O /etc/init.d/status-server; then
-			echo -e "${Error} ServerStatus ·şÎñ¶Ë·şÎñ¹ÜÀí½Å±¾ÏÂÔØÊ§°Ü !" && exit 1
+			echo -e "${Error} ServerStatus æœåŠ¡ç«¯æœåŠ¡ç®¡ç†è„šæœ¬ä¸‹è½½å¤±è´¥ !" && exit 1
 		fi
 		chmod +x /etc/init.d/status-server
 		update-rc.d -f status-server defaults
 	fi
-	echo -e "${Info} ServerStatus ·şÎñ¶Ë·şÎñ¹ÜÀí½Å±¾ÏÂÔØÍê³É !"
+	echo -e "${Info} ServerStatus æœåŠ¡ç«¯æœåŠ¡ç®¡ç†è„šæœ¬ä¸‹è½½å®Œæˆ !"
 }
 Service_Server_Status_client(){
 	if [[ ${release} = "centos" ]]; then
 		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/service/server_status_client_centos" -O /etc/init.d/status-client; then
-			echo -e "${Error} ServerStatus ¿Í»§¶Ë·şÎñ¹ÜÀí½Å±¾ÏÂÔØÊ§°Ü !" && exit 1
+			echo -e "${Error} ServerStatus å®¢æˆ·ç«¯æœåŠ¡ç®¡ç†è„šæœ¬ä¸‹è½½å¤±è´¥ !" && exit 1
 		fi
 		chmod +x /etc/init.d/status-client
 		chkconfig --add status-client
 		chkconfig status-client on
 	else
 		if ! wget --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/service/server_status_client_debian" -O /etc/init.d/status-client; then
-			echo -e "${Error} ServerStatus ¿Í»§¶Ë·şÎñ¹ÜÀí½Å±¾ÏÂÔØÊ§°Ü !" && exit 1
+			echo -e "${Error} ServerStatus å®¢æˆ·ç«¯æœåŠ¡ç®¡ç†è„šæœ¬ä¸‹è½½å¤±è´¥ !" && exit 1
 		fi
 		chmod +x /etc/init.d/status-client
 		update-rc.d -f status-client defaults
 	fi
-	echo -e "${Info} ServerStatus ¿Í»§¶Ë·şÎñ¹ÜÀí½Å±¾ÏÂÔØÍê³É !"
+	echo -e "${Info} ServerStatus å®¢æˆ·ç«¯æœåŠ¡ç®¡ç†è„šæœ¬ä¸‹è½½å®Œæˆ !"
 }
 Installation_dependency(){
 	mode=$1
@@ -221,7 +221,7 @@ EOF
 Read_config_client(){
 	if [[ ! -e "${client_file}/status-client.py" ]]; then
 		if [[ ! -e "${file}/status-client.py" ]]; then
-			echo -e "${Error} ServerStatus ¿Í»§¶ËÎÄ¼ş²»´æÔÚ !" && exit 1
+			echo -e "${Error} ServerStatus å®¢æˆ·ç«¯æ–‡ä»¶ä¸å­˜åœ¨ !" && exit 1
 		else
 			client_text="$(cat "${file}/status-client.py"|sed 's/\"//g;s/,//g;s/ //g')"
 			rm -rf "${file}/status-client.py"
@@ -247,59 +247,59 @@ Set_server(){
 	mode=$1
 	[[ -z ${mode} ]] && mode="server"
 	if [[ ${mode} == "server" ]]; then
-		echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÖĞÍøÕ¾ÒªÉèÖÃµÄ ÓòÃû[server]
-Ä¬ÈÏÎª±¾»úIPÎªÓòÃû£¬ÀıÈçÊäÈë: toyoo.pw £¬Èç¹ûÒªÊ¹ÓÃ±¾»úIP£¬ÇëÁô¿ÕÖ±½Ó»Ø³µ"
-		read -e -p "(Ä¬ÈÏ: ±¾»úIP):" server_s
+		echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯ä¸­ç½‘ç«™è¦è®¾ç½®çš„ åŸŸå[server]
+é»˜è®¤ä¸ºæœ¬æœºIPä¸ºåŸŸåï¼Œä¾‹å¦‚è¾“å…¥: toyoo.pw ï¼Œå¦‚æœè¦ä½¿ç”¨æœ¬æœºIPï¼Œè¯·ç•™ç©ºç›´æ¥å›è½¦"
+		read -e -p "(é»˜è®¤: æœ¬æœºIP):" server_s
 		[[ -z "$server_s" ]] && server_s=""
 	else
-		echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËµÄ IP/ÓòÃû[server]"
-		read -e -p "(Ä¬ÈÏ: 127.0.0.1):" server_s
+		echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯çš„ IP/åŸŸå[server]"
+		read -e -p "(é»˜è®¤: 127.0.0.1):" server_s
 		[[ -z "$server_s" ]] && server_s="127.0.0.1"
 	fi
 	
 	echo && echo "	================================================"
-	echo -e "	IP/ÓòÃû[server]: ${Red_background_prefix} ${server_s} ${Font_color_suffix}"
+	echo -e "	IP/åŸŸå[server]: ${Red_background_prefix} ${server_s} ${Font_color_suffix}"
 	echo "	================================================" && echo
 }
 Set_server_http_port(){
 	while true
 		do
-		echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÖĞÍøÕ¾ÒªÉèÖÃµÄ ÓòÃû/IPµÄ¶Ë¿Ú[1-65535]£¨Èç¹ûÊÇÓòÃûµÄ»°£¬Ò»°ãÓÃ 80 ¶Ë¿Ú£©"
-		read -e -p "(Ä¬ÈÏ: 8888):" server_http_port_s
+		echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯ä¸­ç½‘ç«™è¦è®¾ç½®çš„ åŸŸå/IPçš„ç«¯å£[1-65535]ï¼ˆå¦‚æœæ˜¯åŸŸåçš„è¯ï¼Œä¸€èˆ¬ç”¨ 80 ç«¯å£ï¼‰"
+		read -e -p "(é»˜è®¤: 8888):" server_http_port_s
 		[[ -z "$server_http_port_s" ]] && server_http_port_s="8888"
 		echo $((${server_http_port_s}+0)) &>/dev/null
 		if [[ $? -eq 0 ]]; then
 			if [[ ${server_http_port_s} -ge 1 ]] && [[ ${server_http_port_s} -le 65535 ]]; then
 				echo && echo "	================================================"
-				echo -e "	¶Ë¿Ú: ${Red_background_prefix} ${server_http_port_s} ${Font_color_suffix}"
+				echo -e "	ç«¯å£: ${Red_background_prefix} ${server_http_port_s} ${Font_color_suffix}"
 				echo "	================================================" && echo
 				break
 			else
-				echo "ÊäÈë´íÎó, ÇëÊäÈëÕıÈ·µÄ¶Ë¿Ú¡£"
+				echo "è¾“å…¥é”™è¯¯, è¯·è¾“å…¥æ­£ç¡®çš„ç«¯å£ã€‚"
 			fi
 		else
-			echo "ÊäÈë´íÎó, ÇëÊäÈëÕıÈ·µÄ¶Ë¿Ú¡£"
+			echo "è¾“å…¥é”™è¯¯, è¯·è¾“å…¥æ­£ç¡®çš„ç«¯å£ã€‚"
 		fi
 	done
 }
 Set_server_port(){
 	while true
 		do
-		echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶Ë¼àÌıµÄ¶Ë¿Ú[1-65535]£¨ÓÃÓÚ·şÎñ¶Ë½ÓÊÕ¿Í»§¶ËÏûÏ¢µÄ¶Ë¿Ú£¬¿Í»§¶ËÒªÌîĞ´Õâ¸ö¶Ë¿Ú£©"
-		read -e -p "(Ä¬ÈÏ: 35601):" server_port_s
+		echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯ç›‘å¬çš„ç«¯å£[1-65535]ï¼ˆç”¨äºæœåŠ¡ç«¯æ¥æ”¶å®¢æˆ·ç«¯æ¶ˆæ¯çš„ç«¯å£ï¼Œå®¢æˆ·ç«¯è¦å¡«å†™è¿™ä¸ªç«¯å£ï¼‰"
+		read -e -p "(é»˜è®¤: 35601):" server_port_s
 		[[ -z "$server_port_s" ]] && server_port_s="35601"
 		echo $((${server_port_s}+0)) &>/dev/null
 		if [[ $? -eq 0 ]]; then
 			if [[ ${server_port_s} -ge 1 ]] && [[ ${server_port_s} -le 65535 ]]; then
 				echo && echo "	================================================"
-				echo -e "	¶Ë¿Ú: ${Red_background_prefix} ${server_port_s} ${Font_color_suffix}"
+				echo -e "	ç«¯å£: ${Red_background_prefix} ${server_port_s} ${Font_color_suffix}"
 				echo "	================================================" && echo
 				break
 			else
-				echo "ÊäÈë´íÎó, ÇëÊäÈëÕıÈ·µÄ¶Ë¿Ú¡£"
+				echo "è¾“å…¥é”™è¯¯, è¯·è¾“å…¥æ­£ç¡®çš„ç«¯å£ã€‚"
 			fi
 		else
-			echo "ÊäÈë´íÎó, ÇëÊäÈëÕıÈ·µÄ¶Ë¿Ú¡£"
+			echo "è¾“å…¥é”™è¯¯, è¯·è¾“å…¥æ­£ç¡®çš„ç«¯å£ã€‚"
 		fi
 	done
 }
@@ -307,52 +307,52 @@ Set_username(){
 	mode=$1
 	[[ -z ${mode} ]] && mode="server"
 	if [[ ${mode} == "server" ]]; then
-		echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÒªÉèÖÃµÄÓÃ»§Ãû[username]£¨×ÖÄ¸/Êı×Ö£¬²»¿ÉÓëÆäËûÕËºÅÖØ¸´£©"
+		echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯è¦è®¾ç½®çš„ç”¨æˆ·å[username]ï¼ˆå­—æ¯/æ•°å­—ï¼Œä¸å¯ä¸å…¶ä»–è´¦å·é‡å¤ï¼‰"
 	else
-		echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÖĞ¶ÔÓ¦ÅäÖÃµÄÓÃ»§Ãû[username]£¨×ÖÄ¸/Êı×Ö£¬²»¿ÉÓëÆäËûÕËºÅÖØ¸´£©"
+		echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯ä¸­å¯¹åº”é…ç½®çš„ç”¨æˆ·å[username]ï¼ˆå­—æ¯/æ•°å­—ï¼Œä¸å¯ä¸å…¶ä»–è´¦å·é‡å¤ï¼‰"
 	fi
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" username_s
-	[[ -z "$username_s" ]] && echo "ÒÑÈ¡Ïû..." && exit 0
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" username_s
+	[[ -z "$username_s" ]] && echo "å·²å–æ¶ˆ..." && exit 0
 	echo && echo "	================================================"
-	echo -e "	ÕËºÅ[username]: ${Red_background_prefix} ${username_s} ${Font_color_suffix}"
+	echo -e "	è´¦å·[username]: ${Red_background_prefix} ${username_s} ${Font_color_suffix}"
 	echo "	================================================" && echo
 }
 Set_password(){
 	mode=$1
 	[[ -z ${mode} ]] && mode="server"
 	if [[ ${mode} == "server" ]]; then
-		echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÒªÉèÖÃµÄÃÜÂë[password]£¨×ÖÄ¸/Êı×Ö£¬¿ÉÖØ¸´£©"
+		echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯è¦è®¾ç½®çš„å¯†ç [password]ï¼ˆå­—æ¯/æ•°å­—ï¼Œå¯é‡å¤ï¼‰"
 	else
-		echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÖĞ¶ÔÓ¦ÅäÖÃµÄÃÜÂë[password]£¨×ÖÄ¸/Êı×Ö£©"
+		echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯ä¸­å¯¹åº”é…ç½®çš„å¯†ç [password]ï¼ˆå­—æ¯/æ•°å­—ï¼‰"
 	fi
-	read -e -p "(Ä¬ÈÏ: doub.io):" password_s
+	read -e -p "(é»˜è®¤: doub.io):" password_s
 	[[ -z "$password_s" ]] && password_s="doub.io"
 	echo && echo "	================================================"
-	echo -e "	ÃÜÂë[password]: ${Red_background_prefix} ${password_s} ${Font_color_suffix}"
+	echo -e "	å¯†ç [password]: ${Red_background_prefix} ${password_s} ${Font_color_suffix}"
 	echo "	================================================" && echo
 }
 Set_name(){
-	echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÒªÉèÖÃµÄ½ÚµãÃû³Æ[name]£¨Ö§³ÖÖĞÎÄ£¬Ç°ÌáÊÇÄãµÄÏµÍ³ºÍSSH¹¤¾ßÖ§³ÖÖĞÎÄÊäÈë£¬½ö½öÊÇ¸öÃû×Ö£©"
-	read -e -p "(Ä¬ÈÏ: Server 01):" name_s
+	echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯è¦è®¾ç½®çš„èŠ‚ç‚¹åç§°[name]ï¼ˆæ”¯æŒä¸­æ–‡ï¼Œå‰ææ˜¯ä½ çš„ç³»ç»Ÿå’ŒSSHå·¥å…·æ”¯æŒä¸­æ–‡è¾“å…¥ï¼Œä»…ä»…æ˜¯ä¸ªåå­—ï¼‰"
+	read -e -p "(é»˜è®¤: Server 01):" name_s
 	[[ -z "$name_s" ]] && name_s="Server 01"
 	echo && echo "	================================================"
-	echo -e "	½ÚµãÃû³Æ[name]: ${Red_background_prefix} ${name_s} ${Font_color_suffix}"
+	echo -e "	èŠ‚ç‚¹åç§°[name]: ${Red_background_prefix} ${name_s} ${Font_color_suffix}"
 	echo "	================================================" && echo
 }
 Set_type(){
-	echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÒªÉèÖÃµÄ½ÚµãĞéÄâ»¯ÀàĞÍ[type]£¨ÀıÈç OpenVZ / KVM£©"
-	read -e -p "(Ä¬ÈÏ: KVM):" type_s
+	echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯è¦è®¾ç½®çš„èŠ‚ç‚¹è™šæ‹ŸåŒ–ç±»å‹[type]ï¼ˆä¾‹å¦‚ OpenVZ / KVMï¼‰"
+	read -e -p "(é»˜è®¤: KVM):" type_s
 	[[ -z "$type_s" ]] && type_s="KVM"
 	echo && echo "	================================================"
-	echo -e "	ĞéÄâ»¯ÀàĞÍ[type]: ${Red_background_prefix} ${type_s} ${Font_color_suffix}"
+	echo -e "	è™šæ‹ŸåŒ–ç±»å‹[type]: ${Red_background_prefix} ${type_s} ${Font_color_suffix}"
 	echo "	================================================" && echo
 }
 Set_location(){
-	echo -e "ÇëÊäÈë ServerStatus ·şÎñ¶ËÒªÉèÖÃµÄ½ÚµãÎ»ÖÃ[location]£¨Ö§³ÖÖĞÎÄ£¬Ç°ÌáÊÇÄãµÄÏµÍ³ºÍSSH¹¤¾ßÖ§³ÖÖĞÎÄÊäÈë£©"
-	read -e -p "(Ä¬ÈÏ: Hong Kong):" location_s
+	echo -e "è¯·è¾“å…¥ ServerStatus æœåŠ¡ç«¯è¦è®¾ç½®çš„èŠ‚ç‚¹ä½ç½®[location]ï¼ˆæ”¯æŒä¸­æ–‡ï¼Œå‰ææ˜¯ä½ çš„ç³»ç»Ÿå’ŒSSHå·¥å…·æ”¯æŒä¸­æ–‡è¾“å…¥ï¼‰"
+	read -e -p "(é»˜è®¤: Hong Kong):" location_s
 	[[ -z "$location_s" ]] && location_s="Hong Kong"
 	echo && echo "	================================================"
-	echo -e "	½ÚµãÎ»ÖÃ[location]: ${Red_background_prefix} ${location_s} ${Font_color_suffix}"
+	echo -e "	èŠ‚ç‚¹ä½ç½®[location]: ${Red_background_prefix} ${location_s} ${Font_color_suffix}"
 	echo "	================================================" && echo
 }
 Set_config_server(){
@@ -370,23 +370,23 @@ Set_config_client(){
 }
 Set_ServerStatus_server(){
 	check_installed_server_status
-	echo && echo -e " ÄãÒª×öÊ²Ã´£¿
+	echo && echo -e " ä½ è¦åšä»€ä¹ˆï¼Ÿ
 	
- ${Green_font_prefix} 1.${Font_color_suffix} Ìí¼Ó ½ÚµãÅäÖÃ
- ${Green_font_prefix} 2.${Font_color_suffix} É¾³ı ½ÚµãÅäÖÃ
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix} 3.${Font_color_suffix} ĞŞ¸Ä ½ÚµãÅäÖÃ - ½ÚµãÓÃ»§Ãû
- ${Green_font_prefix} 4.${Font_color_suffix} ĞŞ¸Ä ½ÚµãÅäÖÃ - ½ÚµãÃÜÂë
- ${Green_font_prefix} 5.${Font_color_suffix} ĞŞ¸Ä ½ÚµãÅäÖÃ - ½ÚµãÃû³Æ
- ${Green_font_prefix} 6.${Font_color_suffix} ĞŞ¸Ä ½ÚµãÅäÖÃ - ½ÚµãĞéÄâ»¯
- ${Green_font_prefix} 7.${Font_color_suffix} ĞŞ¸Ä ½ÚµãÅäÖÃ - ½ÚµãÎ»ÖÃ
- ${Green_font_prefix} 8.${Font_color_suffix} ĞŞ¸Ä ½ÚµãÅäÖÃ - È«²¿²ÎÊı
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix} 9.${Font_color_suffix} ÆôÓÃ/½ûÓÃ ½ÚµãÅäÖÃ
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix}10.${Font_color_suffix} ĞŞ¸Ä ·şÎñ¶Ë¼àÌı¶Ë¿Ú" && echo
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" server_num
-	[[ -z "${server_num}" ]] && echo "ÒÑÈ¡Ïû..." && exit 1
+ ${Green_font_prefix} 1.${Font_color_suffix} æ·»åŠ  èŠ‚ç‚¹é…ç½®
+ ${Green_font_prefix} 2.${Font_color_suffix} åˆ é™¤ èŠ‚ç‚¹é…ç½®
+â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix} 3.${Font_color_suffix} ä¿®æ”¹ èŠ‚ç‚¹é…ç½® - èŠ‚ç‚¹ç”¨æˆ·å
+ ${Green_font_prefix} 4.${Font_color_suffix} ä¿®æ”¹ èŠ‚ç‚¹é…ç½® - èŠ‚ç‚¹å¯†ç 
+ ${Green_font_prefix} 5.${Font_color_suffix} ä¿®æ”¹ èŠ‚ç‚¹é…ç½® - èŠ‚ç‚¹åç§°
+ ${Green_font_prefix} 6.${Font_color_suffix} ä¿®æ”¹ èŠ‚ç‚¹é…ç½® - èŠ‚ç‚¹è™šæ‹ŸåŒ–
+ ${Green_font_prefix} 7.${Font_color_suffix} ä¿®æ”¹ èŠ‚ç‚¹é…ç½® - èŠ‚ç‚¹ä½ç½®
+ ${Green_font_prefix} 8.${Font_color_suffix} ä¿®æ”¹ èŠ‚ç‚¹é…ç½® - å…¨éƒ¨å‚æ•°
+â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix} 9.${Font_color_suffix} å¯ç”¨/ç¦ç”¨ èŠ‚ç‚¹é…ç½®
+â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix}10.${Font_color_suffix} ä¿®æ”¹ æœåŠ¡ç«¯ç›‘å¬ç«¯å£" && echo
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" server_num
+	[[ -z "${server_num}" ]] && echo "å·²å–æ¶ˆ..." && exit 1
 	if [[ ${server_num} == "1" ]]; then
 		Add_ServerStatus_server
 	elif [[ ${server_num} == "2" ]]; then
@@ -412,14 +412,14 @@ Set_ServerStatus_server(){
 		Write_server_config_conf
 		Add_iptables "${server_port_s}"
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄÊı×Ö[1-10]" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„æ•°å­—[1-10]" && exit 1
 	fi
 	Restart_ServerStatus_server
 }
 List_ServerStatus_server(){
 	conf_text=$(${jq_file} '.servers' ${server_conf}|${jq_file} ".[]|.username"|sed 's/\"//g')
 	conf_text_total=$(echo -e "${conf_text}"|wc -l)
-	[[ ${conf_text_total} = "0" ]] && echo -e "${Error} Ã»ÓĞ·¢ÏÖ Ò»¸ö½ÚµãÅäÖÃ£¬Çë¼ì²é !" && exit 1
+	[[ ${conf_text_total} = "0" ]] && echo -e "${Error} æ²¡æœ‰å‘ç° ä¸€ä¸ªèŠ‚ç‚¹é…ç½®ï¼Œè¯·æ£€æŸ¥ !" && exit 1
 	conf_text_total_a=$(echo $((${conf_text_total}-1)))
 	conf_list_all=""
 	for((integer = 0; integer <= ${conf_text_total_a}; integer++))
@@ -432,19 +432,19 @@ List_ServerStatus_server(){
 		now_text_location=$(echo -e "${now_text}"|grep "location"|awk -F ": " '{print $2}')
 		now_text_disabled=$(echo -e "${now_text}"|grep "disabled"|awk -F ": " '{print $2}')
 		if [[ ${now_text_disabled} == "false" ]]; then
-			now_text_disabled_status="${Green_font_prefix}ÆôÓÃ${Font_color_suffix}"
+			now_text_disabled_status="${Green_font_prefix}å¯ç”¨${Font_color_suffix}"
 		else
-			now_text_disabled_status="${Red_font_prefix}½ûÓÃ${Font_color_suffix}"
+			now_text_disabled_status="${Red_font_prefix}ç¦ç”¨${Font_color_suffix}"
 		fi
-		conf_list_all=${conf_list_all}"ÓÃ»§Ãû: ${Green_font_prefix}"${now_text_username}"${Font_color_suffix} ÃÜÂë: ${Green_font_prefix}"${now_text_password}"${Font_color_suffix} ½ÚµãÃû: ${Green_font_prefix}"${now_text_name}"${Font_color_suffix} ÀàĞÍ: ${Green_font_prefix}"${now_text_type}"${Font_color_suffix} Î»ÖÃ: ${Green_font_prefix}"${now_text_location}"${Font_color_suffix} ×´Ì¬: ${Green_font_prefix}"${now_text_disabled_status}"${Font_color_suffix}\n"
+		conf_list_all=${conf_list_all}"ç”¨æˆ·å: ${Green_font_prefix}"${now_text_username}"${Font_color_suffix} å¯†ç : ${Green_font_prefix}"${now_text_password}"${Font_color_suffix} èŠ‚ç‚¹å: ${Green_font_prefix}"${now_text_name}"${Font_color_suffix} ç±»å‹: ${Green_font_prefix}"${now_text_type}"${Font_color_suffix} ä½ç½®: ${Green_font_prefix}"${now_text_location}"${Font_color_suffix} çŠ¶æ€: ${Green_font_prefix}"${now_text_disabled_status}"${Font_color_suffix}\n"
 	done
-	echo && echo -e "½Úµã×ÜÊı ${Green_font_prefix}"${conf_text_total}"${Font_color_suffix}"
+	echo && echo -e "èŠ‚ç‚¹æ€»æ•° ${Green_font_prefix}"${conf_text_total}"${Font_color_suffix}"
 	echo -e ${conf_list_all}
 }
 Add_ServerStatus_server(){
 	Set_config_server
 	Set_username_ch=$(cat ${server_conf}|grep '"username": "'"${username_s}"'"')
-	[[ ! -z "${Set_username_ch}" ]] && echo -e "${Error} ÓÃ»§ÃûÒÑ±»Ê¹ÓÃ !" && exit 1
+	[[ ! -z "${Set_username_ch}" ]] && echo -e "${Error} ç”¨æˆ·åå·²è¢«ä½¿ç”¨ !" && exit 1
 	sed -i '3i\  },' ${server_conf}
 	sed -i '3i\   "disabled": false' ${server_conf}
 	sed -i '3i\   "location": "'"${location_s}"'",' ${server_conf}
@@ -454,14 +454,14 @@ Add_ServerStatus_server(){
 	sed -i '3i\   "password": "'"${password_s}"'",' ${server_conf}
 	sed -i '3i\   "username": "'"${username_s}"'",' ${server_conf}
 	sed -i '3i\  {' ${server_conf}
-	echo -e "${Info} Ìí¼Ó½Úµã³É¹¦ ${Green_font_prefix}[ ½ÚµãÃû³Æ: ${name_s}, ½ÚµãÓÃ»§Ãû: ${username_s}, ½ÚµãÃÜÂë: ${password_s} ]${Font_color_suffix} !"
+	echo -e "${Info} æ·»åŠ èŠ‚ç‚¹æˆåŠŸ ${Green_font_prefix}[ èŠ‚ç‚¹åç§°: ${name_s}, èŠ‚ç‚¹ç”¨æˆ·å: ${username_s}, èŠ‚ç‚¹å¯†ç : ${password_s} ]${Font_color_suffix} !"
 }
 Del_ServerStatus_server(){
 	List_ServerStatus_server
-	[[ "${conf_text_total}" = "1" ]] && echo -e "${Error} ½ÚµãÅäÖÃ½öÊ£ 1¸ö£¬²»ÄÜÉ¾³ı !" && exit 1
-	echo -e "ÇëÊäÈëÒªÉ¾³ıµÄ½ÚµãÓÃ»§Ãû"
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" del_server_username
-	[[ -z "${del_server_username}" ]] && echo -e "ÒÑÈ¡Ïû..." && exit 1
+	[[ "${conf_text_total}" = "1" ]] && echo -e "${Error} èŠ‚ç‚¹é…ç½®ä»…å‰© 1ä¸ªï¼Œä¸èƒ½åˆ é™¤ !" && exit 1
+	echo -e "è¯·è¾“å…¥è¦åˆ é™¤çš„èŠ‚ç‚¹ç”¨æˆ·å"
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" del_server_username
+	[[ -z "${del_server_username}" ]] && echo -e "å·²å–æ¶ˆ..." && exit 1
 	del_username=`cat -n ${server_conf}|grep '"username": "'"${del_server_username}"'"'|awk '{print $1}'`
 	if [[ ! -z ${del_username} ]]; then
 		del_username_min=$(echo $((${del_username}-1)))
@@ -473,96 +473,96 @@ Del_ServerStatus_server(){
 			sed -i "${del_list_num}s/,$//g" ${server_conf}
 		fi
 		sed -i "${del_username_min},${del_username_max}d" ${server_conf}
-		echo -e "${Info} ½ÚµãÉ¾³ı³É¹¦ ${Green_font_prefix}[ ½ÚµãÓÃ»§Ãû: ${del_server_username} ]${Font_color_suffix} "
+		echo -e "${Info} èŠ‚ç‚¹åˆ é™¤æˆåŠŸ ${Green_font_prefix}[ èŠ‚ç‚¹ç”¨æˆ·å: ${del_server_username} ]${Font_color_suffix} "
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄ½ÚµãÓÃ»§Ãû !" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„èŠ‚ç‚¹ç”¨æˆ·å !" && exit 1
 	fi
 }
 Modify_ServerStatus_server_username(){
 	List_ServerStatus_server
-	echo -e "ÇëÊäÈëÒªĞŞ¸ÄµÄ½ÚµãÓÃ»§Ãû"
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" manually_username
-	[[ -z "${manually_username}" ]] && echo -e "ÒÑÈ¡Ïû..." && exit 1
+	echo -e "è¯·è¾“å…¥è¦ä¿®æ”¹çš„èŠ‚ç‚¹ç”¨æˆ·å"
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" manually_username
+	[[ -z "${manually_username}" ]] && echo -e "å·²å–æ¶ˆ..." && exit 1
 	Set_username_num=$(cat -n ${server_conf}|grep '"username": "'"${manually_username}"'"'|awk '{print $1}')
 	if [[ ! -z ${Set_username_num} ]]; then
 		Set_username
 		Set_username_ch=$(cat ${server_conf}|grep '"username": "'"${username_s}"'"')
-		[[ ! -z "${Set_username_ch}" ]] && echo -e "${Error} ÓÃ»§ÃûÒÑ±»Ê¹ÓÃ !" && exit 1
+		[[ ! -z "${Set_username_ch}" ]] && echo -e "${Error} ç”¨æˆ·åå·²è¢«ä½¿ç”¨ !" && exit 1
 		sed -i "${Set_username_num}"'s/"username": "'"${manually_username}"'"/"username": "'"${username_s}"'"/g' ${server_conf}
-		echo -e "${Info} ĞŞ¸Ä³É¹¦ [ Ô­½ÚµãÓÃ»§Ãû: ${manually_username}, ĞÂ½ÚµãÓÃ»§Ãû: ${username_s} ]"
+		echo -e "${Info} ä¿®æ”¹æˆåŠŸ [ åŸèŠ‚ç‚¹ç”¨æˆ·å: ${manually_username}, æ–°èŠ‚ç‚¹ç”¨æˆ·å: ${username_s} ]"
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄ½ÚµãÓÃ»§Ãû !" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„èŠ‚ç‚¹ç”¨æˆ·å !" && exit 1
 	fi
 }
 Modify_ServerStatus_server_password(){
 	List_ServerStatus_server
-	echo -e "ÇëÊäÈëÒªĞŞ¸ÄµÄ½ÚµãÓÃ»§Ãû"
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" manually_username
-	[[ -z "${manually_username}" ]] && echo -e "ÒÑÈ¡Ïû..." && exit 1
+	echo -e "è¯·è¾“å…¥è¦ä¿®æ”¹çš„èŠ‚ç‚¹ç”¨æˆ·å"
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" manually_username
+	[[ -z "${manually_username}" ]] && echo -e "å·²å–æ¶ˆ..." && exit 1
 	Set_username_num=$(cat -n ${server_conf}|grep '"username": "'"${manually_username}"'"'|awk '{print $1}')
 	if [[ ! -z ${Set_username_num} ]]; then
 		Set_password
 		Set_password_num_a=$(echo $((${Set_username_num}+1)))
 		Set_password_num_text=$(sed -n "${Set_password_num_a}p" ${server_conf}|sed 's/\"//g;s/,$//g'|awk -F ": " '{print $2}')
 		sed -i "${Set_password_num_a}"'s/"password": "'"${Set_password_num_text}"'"/"password": "'"${password_s}"'"/g' ${server_conf}
-		echo -e "${Info} ĞŞ¸Ä³É¹¦ [ Ô­½ÚµãÃÜÂë: ${Set_password_num_text}, ĞÂ½ÚµãÃÜÂë: ${password_s} ]"
+		echo -e "${Info} ä¿®æ”¹æˆåŠŸ [ åŸèŠ‚ç‚¹å¯†ç : ${Set_password_num_text}, æ–°èŠ‚ç‚¹å¯†ç : ${password_s} ]"
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄ½ÚµãÓÃ»§Ãû !" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„èŠ‚ç‚¹ç”¨æˆ·å !" && exit 1
 	fi
 }
 Modify_ServerStatus_server_name(){
 	List_ServerStatus_server
-	echo -e "ÇëÊäÈëÒªĞŞ¸ÄµÄ½ÚµãÓÃ»§Ãû"
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" manually_username
-	[[ -z "${manually_username}" ]] && echo -e "ÒÑÈ¡Ïû..." && exit 1
+	echo -e "è¯·è¾“å…¥è¦ä¿®æ”¹çš„èŠ‚ç‚¹ç”¨æˆ·å"
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" manually_username
+	[[ -z "${manually_username}" ]] && echo -e "å·²å–æ¶ˆ..." && exit 1
 	Set_username_num=$(cat -n ${server_conf}|grep '"username": "'"${manually_username}"'"'|awk '{print $1}')
 	if [[ ! -z ${Set_username_num} ]]; then
 		Set_name
 		Set_name_num_a=$(echo $((${Set_username_num}+2)))
 		Set_name_num_a_text=$(sed -n "${Set_name_num_a}p" ${server_conf}|sed 's/\"//g;s/,$//g'|awk -F ": " '{print $2}')
 		sed -i "${Set_name_num_a}"'s/"name": "'"${Set_name_num_a_text}"'"/"name": "'"${name_s}"'"/g' ${server_conf}
-		echo -e "${Info} ĞŞ¸Ä³É¹¦ [ Ô­½ÚµãÃû³Æ: ${Set_name_num_a_text}, ĞÂ½ÚµãÃû³Æ: ${name_s} ]"
+		echo -e "${Info} ä¿®æ”¹æˆåŠŸ [ åŸèŠ‚ç‚¹åç§°: ${Set_name_num_a_text}, æ–°èŠ‚ç‚¹åç§°: ${name_s} ]"
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄ½ÚµãÓÃ»§Ãû !" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„èŠ‚ç‚¹ç”¨æˆ·å !" && exit 1
 	fi
 }
 Modify_ServerStatus_server_type(){
 	List_ServerStatus_server
-	echo -e "ÇëÊäÈëÒªĞŞ¸ÄµÄ½ÚµãÓÃ»§Ãû"
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" manually_username
-	[[ -z "${manually_username}" ]] && echo -e "ÒÑÈ¡Ïû..." && exit 1
+	echo -e "è¯·è¾“å…¥è¦ä¿®æ”¹çš„èŠ‚ç‚¹ç”¨æˆ·å"
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" manually_username
+	[[ -z "${manually_username}" ]] && echo -e "å·²å–æ¶ˆ..." && exit 1
 	Set_username_num=$(cat -n ${server_conf}|grep '"username": "'"${manually_username}"'"'|awk '{print $1}')
 	if [[ ! -z ${Set_username_num} ]]; then
 		Set_type
 		Set_type_num_a=$(echo $((${Set_username_num}+3)))
 		Set_type_num_a_text=$(sed -n "${Set_type_num_a}p" ${server_conf}|sed 's/\"//g;s/,$//g'|awk -F ": " '{print $2}')
 		sed -i "${Set_type_num_a}"'s/"type": "'"${Set_type_num_a_text}"'"/"type": "'"${type_s}"'"/g' ${server_conf}
-		echo -e "${Info} ĞŞ¸Ä³É¹¦ [ Ô­½ÚµãĞéÄâ»¯: ${Set_type_num_a_text}, ĞÂ½ÚµãĞéÄâ»¯: ${type_s} ]"
+		echo -e "${Info} ä¿®æ”¹æˆåŠŸ [ åŸèŠ‚ç‚¹è™šæ‹ŸåŒ–: ${Set_type_num_a_text}, æ–°èŠ‚ç‚¹è™šæ‹ŸåŒ–: ${type_s} ]"
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄ½ÚµãÓÃ»§Ãû !" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„èŠ‚ç‚¹ç”¨æˆ·å !" && exit 1
 	fi
 }
 Modify_ServerStatus_server_location(){
 	List_ServerStatus_server
-	echo -e "ÇëÊäÈëÒªĞŞ¸ÄµÄ½ÚµãÓÃ»§Ãû"
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" manually_username
-	[[ -z "${manually_username}" ]] && echo -e "ÒÑÈ¡Ïû..." && exit 1
+	echo -e "è¯·è¾“å…¥è¦ä¿®æ”¹çš„èŠ‚ç‚¹ç”¨æˆ·å"
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" manually_username
+	[[ -z "${manually_username}" ]] && echo -e "å·²å–æ¶ˆ..." && exit 1
 	Set_username_num=$(cat -n ${server_conf}|grep '"username": "'"${manually_username}"'"'|awk '{print $1}')
 	if [[ ! -z ${Set_username_num} ]]; then
 		Set_location
 		Set_location_num_a=$(echo $((${Set_username_num}+5)))
 		Set_location_num_a_text=$(sed -n "${Set_location_num_a}p" ${server_conf}|sed 's/\"//g;s/,$//g'|awk -F ": " '{print $2}')
 		sed -i "${Set_location_num_a}"'s/"location": "'"${Set_location_num_a_text}"'"/"location": "'"${location_s}"'"/g' ${server_conf}
-		echo -e "${Info} ĞŞ¸Ä³É¹¦ [ Ô­½ÚµãÎ»ÖÃ: ${Set_location_num_a_text}, ĞÂ½ÚµãÎ»ÖÃ: ${location_s} ]"
+		echo -e "${Info} ä¿®æ”¹æˆåŠŸ [ åŸèŠ‚ç‚¹ä½ç½®: ${Set_location_num_a_text}, æ–°èŠ‚ç‚¹ä½ç½®: ${location_s} ]"
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄ½ÚµãÓÃ»§Ãû !" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„èŠ‚ç‚¹ç”¨æˆ·å !" && exit 1
 	fi
 }
 Modify_ServerStatus_server_all(){
 	List_ServerStatus_server
-	echo -e "ÇëÊäÈëÒªĞŞ¸ÄµÄ½ÚµãÓÃ»§Ãû"
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" manually_username
-	[[ -z "${manually_username}" ]] && echo -e "ÒÑÈ¡Ïû..." && exit 1
+	echo -e "è¯·è¾“å…¥è¦ä¿®æ”¹çš„èŠ‚ç‚¹ç”¨æˆ·å"
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" manually_username
+	[[ -z "${manually_username}" ]] && echo -e "å·²å–æ¶ˆ..." && exit 1
 	Set_username_num=$(cat -n ${server_conf}|grep '"username": "'"${manually_username}"'"'|awk '{print $1}')
 	if [[ ! -z ${Set_username_num} ]]; then
 		Set_username
@@ -583,16 +583,16 @@ Modify_ServerStatus_server_all(){
 		Set_location_num_a=$(echo $((${Set_username_num}+5)))
 		Set_location_num_a_text=$(sed -n "${Set_location_num_a}p" ${server_conf}|sed 's/\"//g;s/,$//g'|awk -F ": " '{print $2}')
 		sed -i "${Set_location_num_a}"'s/"location": "'"${Set_location_num_a_text}"'"/"location": "'"${location_s}"'"/g' ${server_conf}
-		echo -e "${Info} ĞŞ¸Ä³É¹¦¡£"
+		echo -e "${Info} ä¿®æ”¹æˆåŠŸã€‚"
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄ½ÚµãÓÃ»§Ãû !" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„èŠ‚ç‚¹ç”¨æˆ·å !" && exit 1
 	fi
 }
 Modify_ServerStatus_server_disabled(){
 	List_ServerStatus_server
-	echo -e "ÇëÊäÈëÒªĞŞ¸ÄµÄ½ÚµãÓÃ»§Ãû"
-	read -e -p "(Ä¬ÈÏ: È¡Ïû):" manually_username
-	[[ -z "${manually_username}" ]] && echo -e "ÒÑÈ¡Ïû..." && exit 1
+	echo -e "è¯·è¾“å…¥è¦ä¿®æ”¹çš„èŠ‚ç‚¹ç”¨æˆ·å"
+	read -e -p "(é»˜è®¤: å–æ¶ˆ):" manually_username
+	[[ -z "${manually_username}" ]] && echo -e "å·²å–æ¶ˆ..." && exit 1
 	Set_username_num=$(cat -n ${server_conf}|grep '"username": "'"${manually_username}"'"'|awk '{print $1}')
 	if [[ ! -z ${Set_username_num} ]]; then
 		Set_disabled_num_a=$(echo $((${Set_username_num}+6)))
@@ -603,9 +603,9 @@ Modify_ServerStatus_server_disabled(){
 			disabled_s="false"
 		fi
 		sed -i "${Set_disabled_num_a}"'s/"disabled": '"${Set_disabled_num_a_text}"'/"disabled": '"${disabled_s}"'/g' ${server_conf}
-		echo -e "${Info} ĞŞ¸Ä³É¹¦ [ Ô­½ûÓÃ×´Ì¬: ${Set_disabled_num_a_text}, ĞÂ½ûÓÃ×´Ì¬: ${disabled_s} ]"
+		echo -e "${Info} ä¿®æ”¹æˆåŠŸ [ åŸç¦ç”¨çŠ¶æ€: ${Set_disabled_num_a_text}, æ–°ç¦ç”¨çŠ¶æ€: ${disabled_s} ]"
 	else
-		echo -e "${Error} ÇëÊäÈëÕıÈ·µÄ½ÚµãÓÃ»§Ãû !" && exit 1
+		echo -e "${Error} è¯·è¾“å…¥æ­£ç¡®çš„èŠ‚ç‚¹ç”¨æˆ·å !" && exit 1
 	fi
 }
 Set_ServerStatus_client(){
@@ -630,17 +630,17 @@ Install_jq(){
 		else
 			wget --no-check-certificate "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux32" -O ${jq_file}
 		fi
-		[[ ! -e ${jq_file} ]] && echo -e "${Error} JQ½âÎöÆ÷ ÏÂÔØÊ§°Ü£¬Çë¼ì²é !" && exit 1
+		[[ ! -e ${jq_file} ]] && echo -e "${Error} JQè§£æå™¨ ä¸‹è½½å¤±è´¥ï¼Œè¯·æ£€æŸ¥ !" && exit 1
 		chmod +x ${jq_file}
-		echo -e "${Info} JQ½âÎöÆ÷ °²×°Íê³É£¬¼ÌĞø..." 
+		echo -e "${Info} JQè§£æå™¨ å®‰è£…å®Œæˆï¼Œç»§ç»­..." 
 	else
-		echo -e "${Info} JQ½âÎöÆ÷ ÒÑ°²×°£¬¼ÌĞø..."
+		echo -e "${Info} JQè§£æå™¨ å·²å®‰è£…ï¼Œç»§ç»­..."
 	fi
 }
 Install_caddy(){
 	echo
-	echo -e "${Info} ÊÇ·ñÓÉ½Å±¾×Ô¶¯ÅäÖÃHTTP·şÎñ(·şÎñ¶ËµÄÔÚÏß¼à¿ØÍøÕ¾)£¬Èç¹ûÑ¡Ôñ N£¬ÔòÇëÔÚÆäËûHTTP·şÎñÖĞÅäÖÃÍøÕ¾¸ùÄ¿Â¼Îª£º${Green_font_prefix}${web_file}${Font_color_suffix} [Y/n]"
-	read -e -p "(Ä¬ÈÏ: Y ×Ô¶¯²¿Êğ):" caddy_yn
+	echo -e "${Info} æ˜¯å¦ç”±è„šæœ¬è‡ªåŠ¨é…ç½®HTTPæœåŠ¡(æœåŠ¡ç«¯çš„åœ¨çº¿ç›‘æ§ç½‘ç«™)ï¼Œå¦‚æœé€‰æ‹© Nï¼Œåˆ™è¯·åœ¨å…¶ä»–HTTPæœåŠ¡ä¸­é…ç½®ç½‘ç«™æ ¹ç›®å½•ä¸ºï¼š${Green_font_prefix}${web_file}${Font_color_suffix} [Y/n]"
+	read -e -p "(é»˜è®¤: Y è‡ªåŠ¨éƒ¨ç½²):" caddy_yn
 	[[ -z "$caddy_yn" ]] && caddy_yn="y"
 	if [[ "${caddy_yn}" == [Yy] ]]; then
 		Set_server "server"
@@ -650,9 +650,9 @@ Install_caddy(){
 			chmod +x caddy_install.sh
 			bash caddy_install.sh install
 			rm -rf caddy_install.sh
-			[[ ! -e "/usr/local/caddy/caddy" ]] && echo -e "${Error} Caddy°²×°Ê§°Ü£¬ÇëÊÖ¶¯²¿Êğ£¬WebÍøÒ³ÎÄ¼şÎ»ÖÃ£º${Web_file}" && exit 1
+			[[ ! -e "/usr/local/caddy/caddy" ]] && echo -e "${Error} Caddyå®‰è£…å¤±è´¥ï¼Œè¯·æ‰‹åŠ¨éƒ¨ç½²ï¼ŒWebç½‘é¡µæ–‡ä»¶ä½ç½®ï¼š${Web_file}" && exit 1
 		else
-			echo -e "${Info} ·¢ÏÖCaddyÒÑ°²×°£¬¿ªÊ¼ÅäÖÃ..."
+			echo -e "${Info} å‘ç°Caddyå·²å®‰è£…ï¼Œå¼€å§‹é…ç½®..."
 		fi
 		if [[ ! -s "/usr/local/caddy/Caddyfile" ]]; then
 			cat > "/usr/local/caddy/Caddyfile"<<-EOF
@@ -664,7 +664,7 @@ http://${server_s}:${server_http_port_s} {
 EOF
 			/etc/init.d/caddy restart
 		else
-			echo -e "${Info} ·¢ÏÖ Caddy ÅäÖÃÎÄ¼ş·Ç¿Õ£¬¿ªÊ¼×·¼Ó ServerStatus ÍøÕ¾ÅäÖÃÄÚÈİµ½ÎÄ¼ş×îºó..."
+			echo -e "${Info} å‘ç° Caddy é…ç½®æ–‡ä»¶éç©ºï¼Œå¼€å§‹è¿½åŠ  ServerStatus ç½‘ç«™é…ç½®å†…å®¹åˆ°æ–‡ä»¶æœ€å..."
 			cat >> "/usr/local/caddy/Caddyfile"<<-EOF
 http://${server_s}:${server_http_port_s} {
  root ${web_file}
@@ -675,66 +675,66 @@ EOF
 			/etc/init.d/caddy restart
 		fi
 	else
-		echo -e "${Info} Ìø¹ı HTTP·şÎñ²¿Êğ£¬ÇëÊÖ¶¯²¿Êğ£¬WebÍøÒ³ÎÄ¼şÎ»ÖÃ£º${web_file} £¬Èç¹ûÎ»ÖÃ¸Ä±ä£¬Çë×¢ÒâĞŞ¸Ä·şÎñ½Å±¾ÎÄ¼ş /etc/init.d/status-server ÖĞµÄ WEB_BIN ±äÁ¿ !"
+		echo -e "${Info} è·³è¿‡ HTTPæœåŠ¡éƒ¨ç½²ï¼Œè¯·æ‰‹åŠ¨éƒ¨ç½²ï¼ŒWebç½‘é¡µæ–‡ä»¶ä½ç½®ï¼š${web_file} ï¼Œå¦‚æœä½ç½®æ”¹å˜ï¼Œè¯·æ³¨æ„ä¿®æ”¹æœåŠ¡è„šæœ¬æ–‡ä»¶ /etc/init.d/status-server ä¸­çš„ WEB_BIN å˜é‡ !"
 	fi
 }
 Install_ServerStatus_server(){
-	[[ -e "${server_file}/sergate" ]] && echo -e "${Error} ¼ì²âµ½ ServerStatus ·şÎñ¶ËÒÑ°²×° !" && exit 1
+	[[ -e "${server_file}/sergate" ]] && echo -e "${Error} æ£€æµ‹åˆ° ServerStatus æœåŠ¡ç«¯å·²å®‰è£… !" && exit 1
 	Set_server_port
-	echo -e "${Info} ¿ªÊ¼°²×°/ÅäÖÃ ÒÀÀµ..."
+	echo -e "${Info} å¼€å§‹å®‰è£…/é…ç½® ä¾èµ–..."
 	Installation_dependency "server"
 	Install_caddy
-	echo -e "${Info} ¿ªÊ¼ÏÂÔØ/°²×°..."
+	echo -e "${Info} å¼€å§‹ä¸‹è½½/å®‰è£…..."
 	Download_Server_Status_server
 	Install_jq
-	echo -e "${Info} ¿ªÊ¼ÏÂÔØ/°²×° ·şÎñ½Å±¾(init)..."
+	echo -e "${Info} å¼€å§‹ä¸‹è½½/å®‰è£… æœåŠ¡è„šæœ¬(init)..."
 	Service_Server_Status_server
-	echo -e "${Info} ¿ªÊ¼Ğ´Èë ÅäÖÃÎÄ¼ş..."
+	echo -e "${Info} å¼€å§‹å†™å…¥ é…ç½®æ–‡ä»¶..."
 	Write_server_config
 	Write_server_config_conf
-	echo -e "${Info} ¿ªÊ¼ÉèÖÃ iptables·À»ğÇ½..."
+	echo -e "${Info} å¼€å§‹è®¾ç½® iptablesé˜²ç«å¢™..."
 	Set_iptables
-	echo -e "${Info} ¿ªÊ¼Ìí¼Ó iptables·À»ğÇ½¹æÔò..."
+	echo -e "${Info} å¼€å§‹æ·»åŠ  iptablesé˜²ç«å¢™è§„åˆ™..."
 	Add_iptables "${server_port_s}"
 	[[ ! -z "${server_http_port_s}" ]] && Add_iptables "${server_http_port_s}"
-	echo -e "${Info} ¿ªÊ¼±£´æ iptables·À»ğÇ½¹æÔò..."
+	echo -e "${Info} å¼€å§‹ä¿å­˜ iptablesé˜²ç«å¢™è§„åˆ™..."
 	Save_iptables
-	echo -e "${Info} ËùÓĞ²½Öè °²×°Íê±Ï£¬¿ªÊ¼Æô¶¯..."
+	echo -e "${Info} æ‰€æœ‰æ­¥éª¤ å®‰è£…å®Œæ¯•ï¼Œå¼€å§‹å¯åŠ¨..."
 	Start_ServerStatus_server
 }
 Install_ServerStatus_client(){
-	[[ -e "${client_file}/status-client.py" ]] && echo -e "${Error} ¼ì²âµ½ ServerStatus ¿Í»§¶ËÒÑ°²×° !" && exit 1
+	[[ -e "${client_file}/status-client.py" ]] && echo -e "${Error} æ£€æµ‹åˆ° ServerStatus å®¢æˆ·ç«¯å·²å®‰è£… !" && exit 1
 	check_sys
 	if [[ ${release} == "centos" ]]; then
 		cat /etc/redhat-release |grep 7\..*|grep -i centos>/dev/null
 		if [[ $? != 0 ]]; then
-			echo -e "${Info} ¼ì²âµ½ÄãµÄÏµÍ³Îª CentOS6£¬¸ÃÏµÍ³×Ô´øµÄ Python2.6 °æ±¾¹ıµÍ£¬»áµ¼ÖÂÎŞ·¨ÔËĞĞ¿Í»§¶Ë£¬Èç¹ûÄãÓĞÄÜÁ¦Éı¼¶Îª Python2.7£¬ÄÇÃ´Çë¼ÌĞø(·ñÔò½¨Òé¸ü»»ÏµÍ³)£º[y/N]"
-			read -e -p "(Ä¬ÈÏ: N ¼ÌĞø°²×°):" sys_centos6
+			echo -e "${Info} æ£€æµ‹åˆ°ä½ çš„ç³»ç»Ÿä¸º CentOS6ï¼Œè¯¥ç³»ç»Ÿè‡ªå¸¦çš„ Python2.6 ç‰ˆæœ¬è¿‡ä½ï¼Œä¼šå¯¼è‡´æ— æ³•è¿è¡Œå®¢æˆ·ç«¯ï¼Œå¦‚æœä½ æœ‰èƒ½åŠ›å‡çº§ä¸º Python2.7ï¼Œé‚£ä¹ˆè¯·ç»§ç»­(å¦åˆ™å»ºè®®æ›´æ¢ç³»ç»Ÿ)ï¼š[y/N]"
+			read -e -p "(é»˜è®¤: N ç»§ç»­å®‰è£…):" sys_centos6
 			[[ -z "$sys_centos6" ]] && sys_centos6="n"
 			if [[ "${sys_centos6}" == [Nn] ]]; then
-				echo -e "\n${Info} ÒÑÈ¡Ïû...\n"
+				echo -e "\n${Info} å·²å–æ¶ˆ...\n"
 				exit 1
 			fi
 		fi
 	fi
-	echo -e "${Info} ¿ªÊ¼ÉèÖÃ ÓÃ»§ÅäÖÃ..."
+	echo -e "${Info} å¼€å§‹è®¾ç½® ç”¨æˆ·é…ç½®..."
 	Set_config_client
-	echo -e "${Info} ¿ªÊ¼°²×°/ÅäÖÃ ÒÀÀµ..."
+	echo -e "${Info} å¼€å§‹å®‰è£…/é…ç½® ä¾èµ–..."
 	Installation_dependency "client"
-	echo -e "${Info} ¿ªÊ¼ÏÂÔØ/°²×°..."
+	echo -e "${Info} å¼€å§‹ä¸‹è½½/å®‰è£…..."
 	Download_Server_Status_client
-	echo -e "${Info} ¿ªÊ¼ÏÂÔØ/°²×° ·şÎñ½Å±¾(init)..."
+	echo -e "${Info} å¼€å§‹ä¸‹è½½/å®‰è£… æœåŠ¡è„šæœ¬(init)..."
 	Service_Server_Status_client
-	echo -e "${Info} ¿ªÊ¼Ğ´Èë ÅäÖÃ..."
+	echo -e "${Info} å¼€å§‹å†™å…¥ é…ç½®..."
 	Read_config_client
 	Modify_config_client
-	echo -e "${Info} ¿ªÊ¼ÉèÖÃ iptables·À»ğÇ½..."
+	echo -e "${Info} å¼€å§‹è®¾ç½® iptablesé˜²ç«å¢™..."
 	Set_iptables
-	echo -e "${Info} ¿ªÊ¼Ìí¼Ó iptables·À»ğÇ½¹æÔò..."
+	echo -e "${Info} å¼€å§‹æ·»åŠ  iptablesé˜²ç«å¢™è§„åˆ™..."
 	Add_iptables_OUT "${server_port_s}"
-	echo -e "${Info} ¿ªÊ¼±£´æ iptables·À»ğÇ½¹æÔò..."
+	echo -e "${Info} å¼€å§‹ä¿å­˜ iptablesé˜²ç«å¢™è§„åˆ™..."
 	Save_iptables
-	echo -e "${Info} ËùÓĞ²½Öè °²×°Íê±Ï£¬¿ªÊ¼Æô¶¯..."
+	echo -e "${Info} æ‰€æœ‰æ­¥éª¤ å®‰è£…å®Œæ¯•ï¼Œå¼€å§‹å¯åŠ¨..."
 	Start_ServerStatus_client
 }
 Update_ServerStatus_server(){
@@ -752,7 +752,7 @@ Update_ServerStatus_client(){
 	[[ ! -z ${PID} ]] && /etc/init.d/status-client stop
 	if [[ ! -e "${client_file}/status-client.py" ]]; then
 		if [[ ! -e "${file}/status-client.py" ]]; then
-			echo -e "${Error} ServerStatus ¿Í»§¶ËÎÄ¼ş²»´æÔÚ !" && exit 1
+			echo -e "${Error} ServerStatus å®¢æˆ·ç«¯æ–‡ä»¶ä¸å­˜åœ¨ !" && exit 1
 		else
 			client_text="$(cat "${file}/status-client.py"|sed 's/\"//g;s/,//g;s/ //g')"
 			rm -rf "${file}/status-client.py"
@@ -774,13 +774,13 @@ Update_ServerStatus_client(){
 Start_ServerStatus_server(){
 	check_installed_server_status
 	check_pid_server
-	[[ ! -z ${PID} ]] && echo -e "${Error} ServerStatus ÕıÔÚÔËĞĞ£¬Çë¼ì²é !" && exit 1
+	[[ ! -z ${PID} ]] && echo -e "${Error} ServerStatus æ­£åœ¨è¿è¡Œï¼Œè¯·æ£€æŸ¥ !" && exit 1
 	/etc/init.d/status-server start
 }
 Stop_ServerStatus_server(){
 	check_installed_server_status
 	check_pid_server
-	[[ -z ${PID} ]] && echo -e "${Error} ServerStatus Ã»ÓĞÔËĞĞ£¬Çë¼ì²é !" && exit 1
+	[[ -z ${PID} ]] && echo -e "${Error} ServerStatus æ²¡æœ‰è¿è¡Œï¼Œè¯·æ£€æŸ¥ !" && exit 1
 	/etc/init.d/status-server stop
 }
 Restart_ServerStatus_server(){
@@ -791,9 +791,9 @@ Restart_ServerStatus_server(){
 }
 Uninstall_ServerStatus_server(){
 	check_installed_server_status
-	echo "È·¶¨ÒªĞ¶ÔØ ServerStatus ·şÎñ¶Ë(Èç¹ûÍ¬Ê±°²×°ÁË¿Í»§¶Ë£¬ÔòÖ»»áÉ¾³ı·şÎñ¶Ë) ? [y/N]"
+	echo "ç¡®å®šè¦å¸è½½ ServerStatus æœåŠ¡ç«¯(å¦‚æœåŒæ—¶å®‰è£…äº†å®¢æˆ·ç«¯ï¼Œåˆ™åªä¼šåˆ é™¤æœåŠ¡ç«¯) ? [y/N]"
 	echo
-	read -e -p "(Ä¬ÈÏ: n):" unyn
+	read -e -p "(é»˜è®¤: n):" unyn
 	[[ -z ${unyn} ]] && unyn="n"
 	if [[ ${unyn} == [Yy] ]]; then
 		check_pid_server
@@ -820,21 +820,21 @@ Uninstall_ServerStatus_server(){
 		else
 			update-rc.d -f status-server remove
 		fi
-		echo && echo "ServerStatus Ğ¶ÔØÍê³É !" && echo
+		echo && echo "ServerStatus å¸è½½å®Œæˆ !" && echo
 	else
-		echo && echo "Ğ¶ÔØÒÑÈ¡Ïû..." && echo
+		echo && echo "å¸è½½å·²å–æ¶ˆ..." && echo
 	fi
 }
 Start_ServerStatus_client(){
 	check_installed_client_status
 	check_pid_client
-	[[ ! -z ${PID} ]] && echo -e "${Error} ServerStatus ÕıÔÚÔËĞĞ£¬Çë¼ì²é !" && exit 1
+	[[ ! -z ${PID} ]] && echo -e "${Error} ServerStatus æ­£åœ¨è¿è¡Œï¼Œè¯·æ£€æŸ¥ !" && exit 1
 	/etc/init.d/status-client start
 }
 Stop_ServerStatus_client(){
 	check_installed_client_status
 	check_pid_client
-	[[ -z ${PID} ]] && echo -e "${Error} ServerStatus Ã»ÓĞÔËĞĞ£¬Çë¼ì²é !" && exit 1
+	[[ -z ${PID} ]] && echo -e "${Error} ServerStatus æ²¡æœ‰è¿è¡Œï¼Œè¯·æ£€æŸ¥ !" && exit 1
 	/etc/init.d/status-client stop
 }
 Restart_ServerStatus_client(){
@@ -845,9 +845,9 @@ Restart_ServerStatus_client(){
 }
 Uninstall_ServerStatus_client(){
 	check_installed_client_status
-	echo "È·¶¨ÒªĞ¶ÔØ ServerStatus ¿Í»§¶Ë(Èç¹ûÍ¬Ê±°²×°ÁË·şÎñ¶Ë£¬ÔòÖ»»áÉ¾³ı¿Í»§¶Ë) ? [y/N]"
+	echo "ç¡®å®šè¦å¸è½½ ServerStatus å®¢æˆ·ç«¯(å¦‚æœåŒæ—¶å®‰è£…äº†æœåŠ¡ç«¯ï¼Œåˆ™åªä¼šåˆ é™¤å®¢æˆ·ç«¯) ? [y/N]"
 	echo
-	read -e -p "(Ä¬ÈÏ: n):" unyn
+	read -e -p "(é»˜è®¤: n):" unyn
 	[[ -z ${unyn} ]] && unyn="n"
 	if [[ ${unyn} == [Yy] ]]; then
 		check_pid_client
@@ -866,32 +866,32 @@ Uninstall_ServerStatus_client(){
 		else
 			update-rc.d -f status-client remove
 		fi
-		echo && echo "ServerStatus Ğ¶ÔØÍê³É !" && echo
+		echo && echo "ServerStatus å¸è½½å®Œæˆ !" && echo
 	else
-		echo && echo "Ğ¶ÔØÒÑÈ¡Ïû..." && echo
+		echo && echo "å¸è½½å·²å–æ¶ˆ..." && echo
 	fi
 }
 View_ServerStatus_client(){
 	check_installed_client_status
 	Read_config_client
-	clear && echo "¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª" && echo
-	echo -e "  ServerStatus ¿Í»§¶ËÅäÖÃĞÅÏ¢£º
+	clear && echo "â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”" && echo
+	echo -e "  ServerStatus å®¢æˆ·ç«¯é…ç½®ä¿¡æ¯ï¼š
  
   IP \t: ${Green_font_prefix}${client_server}${Font_color_suffix}
-  ¶Ë¿Ú \t: ${Green_font_prefix}${client_port}${Font_color_suffix}
-  ÕËºÅ \t: ${Green_font_prefix}${client_user}${Font_color_suffix}
-  ÃÜÂë \t: ${Green_font_prefix}${client_password}${Font_color_suffix}
+  ç«¯å£ \t: ${Green_font_prefix}${client_port}${Font_color_suffix}
+  è´¦å· \t: ${Green_font_prefix}${client_user}${Font_color_suffix}
+  å¯†ç  \t: ${Green_font_prefix}${client_password}${Font_color_suffix}
  
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª"
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”"
 }
 View_client_Log(){
-	[[ ! -e ${client_log_file} ]] && echo -e "${Error} Ã»ÓĞÕÒµ½ÈÕÖ¾ÎÄ¼ş !" && exit 1
-	echo && echo -e "${Tip} °´ ${Red_font_prefix}Ctrl+C${Font_color_suffix} ÖÕÖ¹²é¿´ÈÕÖ¾" && echo -e "Èç¹ûĞèÒª²é¿´ÍêÕûÈÕÖ¾ÄÚÈİ£¬ÇëÓÃ ${Red_font_prefix}cat ${client_log_file}${Font_color_suffix} ÃüÁî¡£" && echo
+	[[ ! -e ${client_log_file} ]] && echo -e "${Error} æ²¡æœ‰æ‰¾åˆ°æ—¥å¿—æ–‡ä»¶ !" && exit 1
+	echo && echo -e "${Tip} æŒ‰ ${Red_font_prefix}Ctrl+C${Font_color_suffix} ç»ˆæ­¢æŸ¥çœ‹æ—¥å¿—" && echo -e "å¦‚æœéœ€è¦æŸ¥çœ‹å®Œæ•´æ—¥å¿—å†…å®¹ï¼Œè¯·ç”¨ ${Red_font_prefix}cat ${client_log_file}${Font_color_suffix} å‘½ä»¤ã€‚" && echo
 	tail -f ${client_log_file}
 }
 View_server_Log(){
-	[[ ! -e ${erver_log_file} ]] && echo -e "${Error} Ã»ÓĞÕÒµ½ÈÕÖ¾ÎÄ¼ş !" && exit 1
-	echo && echo -e "${Tip} °´ ${Red_font_prefix}Ctrl+C${Font_color_suffix} ÖÕÖ¹²é¿´ÈÕÖ¾" && echo -e "Èç¹ûĞèÒª²é¿´ÍêÕûÈÕÖ¾ÄÚÈİ£¬ÇëÓÃ ${Red_font_prefix}cat ${erver_log_file}${Font_color_suffix} ÃüÁî¡£" && echo
+	[[ ! -e ${erver_log_file} ]] && echo -e "${Error} æ²¡æœ‰æ‰¾åˆ°æ—¥å¿—æ–‡ä»¶ !" && exit 1
+	echo && echo -e "${Tip} æŒ‰ ${Red_font_prefix}Ctrl+C${Font_color_suffix} ç»ˆæ­¢æŸ¥çœ‹æ—¥å¿—" && echo -e "å¦‚æœéœ€è¦æŸ¥çœ‹å®Œæ•´æ—¥å¿—å†…å®¹ï¼Œè¯·ç”¨ ${Red_font_prefix}cat ${erver_log_file}${Font_color_suffix} å‘½ä»¤ã€‚" && echo
 	tail -f ${erver_log_file}
 }
 Add_iptables_OUT(){
@@ -933,7 +933,7 @@ Set_iptables(){
 }
 Update_Shell(){
 	sh_new_ver=$(wget --no-check-certificate -qO- -t1 -T3 "https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/status.sh"|grep 'sh_ver="'|awk -F "=" '{print $NF}'|sed 's/\"//g'|head -1) && sh_new_type="github"
-	[[ -z ${sh_new_ver} ]] && echo -e "${Error} ÎŞ·¨Á´½Óµ½ Github !" && exit 0
+	[[ -z ${sh_new_ver} ]] && echo -e "${Error} æ— æ³•é“¾æ¥åˆ° Github !" && exit 0
 	if [[ -e "/etc/init.d/status-client" ]]; then
 		rm -rf /etc/init.d/status-client
 		Service_Server_Status_client
@@ -943,48 +943,48 @@ Update_Shell(){
 		Service_Server_Status_server
 	fi
 	wget -N --no-check-certificate "https://raw.githubusercontent.com/ToyoDAdoubiBackup/doubi/master/status.sh" && chmod +x status.sh
-	echo -e "½Å±¾ÒÑ¸üĞÂÎª×îĞÂ°æ±¾[ ${sh_new_ver} ] !(×¢Òâ£ºÒòÎª¸üĞÂ·½Ê½ÎªÖ±½Ó¸²¸Çµ±Ç°ÔËĞĞµÄ½Å±¾£¬ËùÒÔ¿ÉÄÜÏÂÃæ»áÌáÊ¾Ò»Ğ©±¨´í£¬ÎŞÊÓ¼´¿É)" && exit 0
+	echo -e "è„šæœ¬å·²æ›´æ–°ä¸ºæœ€æ–°ç‰ˆæœ¬[ ${sh_new_ver} ] !(æ³¨æ„ï¼šå› ä¸ºæ›´æ–°æ–¹å¼ä¸ºç›´æ¥è¦†ç›–å½“å‰è¿è¡Œçš„è„šæœ¬ï¼Œæ‰€ä»¥å¯èƒ½ä¸‹é¢ä¼šæç¤ºä¸€äº›æŠ¥é”™ï¼Œæ— è§†å³å¯)" && exit 0
 }
 menu_client(){
-echo && echo -e "  ServerStatus Ò»¼ü°²×°¹ÜÀí½Å±¾ ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+echo && echo -e "  ServerStatus ä¸€é”®å®‰è£…ç®¡ç†è„šæœ¬ ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   -- Toyo | doub.io/shell-jc3 --
   
- ${Green_font_prefix} 0.${Font_color_suffix} Éı¼¶½Å±¾
- ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix} 1.${Font_color_suffix} °²×° ¿Í»§¶Ë
- ${Green_font_prefix} 2.${Font_color_suffix} ¸üĞÂ ¿Í»§¶Ë
- ${Green_font_prefix} 3.${Font_color_suffix} Ğ¶ÔØ ¿Í»§¶Ë
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix} 4.${Font_color_suffix} Æô¶¯ ¿Í»§¶Ë
- ${Green_font_prefix} 5.${Font_color_suffix} Í£Ö¹ ¿Í»§¶Ë
- ${Green_font_prefix} 6.${Font_color_suffix} ÖØÆô ¿Í»§¶Ë
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix} 7.${Font_color_suffix} ÉèÖÃ ¿Í»§¶ËÅäÖÃ
- ${Green_font_prefix} 8.${Font_color_suffix} ²é¿´ ¿Í»§¶ËĞÅÏ¢
- ${Green_font_prefix} 9.${Font_color_suffix} ²é¿´ ¿Í»§¶ËÈÕÖ¾
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix}10.${Font_color_suffix} ÇĞ»»Îª ·şÎñ¶Ë²Ëµ¥" && echo
+ ${Green_font_prefix} 0.${Font_color_suffix} å‡çº§è„šæœ¬
+ â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix} 1.${Font_color_suffix} å®‰è£… å®¢æˆ·ç«¯
+ ${Green_font_prefix} 2.${Font_color_suffix} æ›´æ–° å®¢æˆ·ç«¯
+ ${Green_font_prefix} 3.${Font_color_suffix} å¸è½½ å®¢æˆ·ç«¯
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix} 4.${Font_color_suffix} å¯åŠ¨ å®¢æˆ·ç«¯
+ ${Green_font_prefix} 5.${Font_color_suffix} åœæ­¢ å®¢æˆ·ç«¯
+ ${Green_font_prefix} 6.${Font_color_suffix} é‡å¯ å®¢æˆ·ç«¯
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix} 7.${Font_color_suffix} è®¾ç½® å®¢æˆ·ç«¯é…ç½®
+ ${Green_font_prefix} 8.${Font_color_suffix} æŸ¥çœ‹ å®¢æˆ·ç«¯ä¿¡æ¯
+ ${Green_font_prefix} 9.${Font_color_suffix} æŸ¥çœ‹ å®¢æˆ·ç«¯æ—¥å¿—
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix}10.${Font_color_suffix} åˆ‡æ¢ä¸º æœåŠ¡ç«¯èœå•" && echo
 if [[ -e "${client_file}/status-client.py" ]]; then
 	check_pid_client
 	if [[ ! -z "${PID}" ]]; then
-		echo -e " µ±Ç°×´Ì¬: ¿Í»§¶Ë ${Green_font_prefix}ÒÑ°²×°${Font_color_suffix} ²¢ ${Green_font_prefix}ÒÑÆô¶¯${Font_color_suffix}"
+		echo -e " å½“å‰çŠ¶æ€: å®¢æˆ·ç«¯ ${Green_font_prefix}å·²å®‰è£…${Font_color_suffix} å¹¶ ${Green_font_prefix}å·²å¯åŠ¨${Font_color_suffix}"
 	else
-		echo -e " µ±Ç°×´Ì¬: ¿Í»§¶Ë ${Green_font_prefix}ÒÑ°²×°${Font_color_suffix} µ« ${Red_font_prefix}Î´Æô¶¯${Font_color_suffix}"
+		echo -e " å½“å‰çŠ¶æ€: å®¢æˆ·ç«¯ ${Green_font_prefix}å·²å®‰è£…${Font_color_suffix} ä½† ${Red_font_prefix}æœªå¯åŠ¨${Font_color_suffix}"
 	fi
 else
 	if [[ -e "${file}/status-client.py" ]]; then
 		check_pid_client
 		if [[ ! -z "${PID}" ]]; then
-			echo -e " µ±Ç°×´Ì¬: ¿Í»§¶Ë ${Green_font_prefix}ÒÑ°²×°${Font_color_suffix} ²¢ ${Green_font_prefix}ÒÑÆô¶¯${Font_color_suffix}"
+			echo -e " å½“å‰çŠ¶æ€: å®¢æˆ·ç«¯ ${Green_font_prefix}å·²å®‰è£…${Font_color_suffix} å¹¶ ${Green_font_prefix}å·²å¯åŠ¨${Font_color_suffix}"
 		else
-			echo -e " µ±Ç°×´Ì¬: ¿Í»§¶Ë ${Green_font_prefix}ÒÑ°²×°${Font_color_suffix} µ« ${Red_font_prefix}Î´Æô¶¯${Font_color_suffix}"
+			echo -e " å½“å‰çŠ¶æ€: å®¢æˆ·ç«¯ ${Green_font_prefix}å·²å®‰è£…${Font_color_suffix} ä½† ${Red_font_prefix}æœªå¯åŠ¨${Font_color_suffix}"
 		fi
 	else
-		echo -e " µ±Ç°×´Ì¬: ¿Í»§¶Ë ${Red_font_prefix}Î´°²×°${Font_color_suffix}"
+		echo -e " å½“å‰çŠ¶æ€: å®¢æˆ·ç«¯ ${Red_font_prefix}æœªå®‰è£…${Font_color_suffix}"
 	fi
 fi
 echo
-read -e -p " ÇëÊäÈëÊı×Ö [0-10]:" num
+read -e -p " è¯·è¾“å…¥æ•°å­— [0-10]:" num
 case "$num" in
 	0)
 	Update_Shell
@@ -1020,41 +1020,41 @@ case "$num" in
 	menu_server
 	;;
 	*)
-	echo "ÇëÊäÈëÕıÈ·Êı×Ö [0-10]"
+	echo "è¯·è¾“å…¥æ­£ç¡®æ•°å­— [0-10]"
 	;;
 esac
 }
 menu_server(){
-echo && echo -e "  ServerStatus Ò»¼ü°²×°¹ÜÀí½Å±¾ ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
+echo && echo -e "  ServerStatus ä¸€é”®å®‰è£…ç®¡ç†è„šæœ¬ ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix}
   -- Toyo | doub.io/shell-jc3 --
   
- ${Green_font_prefix} 0.${Font_color_suffix} Éı¼¶½Å±¾
- ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix} 1.${Font_color_suffix} °²×° ·şÎñ¶Ë
- ${Green_font_prefix} 2.${Font_color_suffix} ¸üĞÂ ·şÎñ¶Ë
- ${Green_font_prefix} 3.${Font_color_suffix} Ğ¶ÔØ ·şÎñ¶Ë
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix} 4.${Font_color_suffix} Æô¶¯ ·şÎñ¶Ë
- ${Green_font_prefix} 5.${Font_color_suffix} Í£Ö¹ ·şÎñ¶Ë
- ${Green_font_prefix} 6.${Font_color_suffix} ÖØÆô ·şÎñ¶Ë
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix} 7.${Font_color_suffix} ÉèÖÃ ·şÎñ¶ËÅäÖÃ
- ${Green_font_prefix} 8.${Font_color_suffix} ²é¿´ ·şÎñ¶ËĞÅÏ¢
- ${Green_font_prefix} 9.${Font_color_suffix} ²é¿´ ·şÎñ¶ËÈÕÖ¾
-¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
- ${Green_font_prefix}10.${Font_color_suffix} ÇĞ»»Îª ¿Í»§¶Ë²Ëµ¥" && echo
+ ${Green_font_prefix} 0.${Font_color_suffix} å‡çº§è„šæœ¬
+ â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix} 1.${Font_color_suffix} å®‰è£… æœåŠ¡ç«¯
+ ${Green_font_prefix} 2.${Font_color_suffix} æ›´æ–° æœåŠ¡ç«¯
+ ${Green_font_prefix} 3.${Font_color_suffix} å¸è½½ æœåŠ¡ç«¯
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix} 4.${Font_color_suffix} å¯åŠ¨ æœåŠ¡ç«¯
+ ${Green_font_prefix} 5.${Font_color_suffix} åœæ­¢ æœåŠ¡ç«¯
+ ${Green_font_prefix} 6.${Font_color_suffix} é‡å¯ æœåŠ¡ç«¯
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix} 7.${Font_color_suffix} è®¾ç½® æœåŠ¡ç«¯é…ç½®
+ ${Green_font_prefix} 8.${Font_color_suffix} æŸ¥çœ‹ æœåŠ¡ç«¯ä¿¡æ¯
+ ${Green_font_prefix} 9.${Font_color_suffix} æŸ¥çœ‹ æœåŠ¡ç«¯æ—¥å¿—
+â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
+ ${Green_font_prefix}10.${Font_color_suffix} åˆ‡æ¢ä¸º å®¢æˆ·ç«¯èœå•" && echo
 if [[ -e "${server_file}/sergate" ]]; then
 	check_pid_server
 	if [[ ! -z "${PID}" ]]; then
-		echo -e " µ±Ç°×´Ì¬: ·şÎñ¶Ë ${Green_font_prefix}ÒÑ°²×°${Font_color_suffix} ²¢ ${Green_font_prefix}ÒÑÆô¶¯${Font_color_suffix}"
+		echo -e " å½“å‰çŠ¶æ€: æœåŠ¡ç«¯ ${Green_font_prefix}å·²å®‰è£…${Font_color_suffix} å¹¶ ${Green_font_prefix}å·²å¯åŠ¨${Font_color_suffix}"
 	else
-		echo -e " µ±Ç°×´Ì¬: ·şÎñ¶Ë ${Green_font_prefix}ÒÑ°²×°${Font_color_suffix} µ« ${Red_font_prefix}Î´Æô¶¯${Font_color_suffix}"
+		echo -e " å½“å‰çŠ¶æ€: æœåŠ¡ç«¯ ${Green_font_prefix}å·²å®‰è£…${Font_color_suffix} ä½† ${Red_font_prefix}æœªå¯åŠ¨${Font_color_suffix}"
 	fi
 else
-	echo -e " µ±Ç°×´Ì¬: ·şÎñ¶Ë ${Red_font_prefix}Î´°²×°${Font_color_suffix}"
+	echo -e " å½“å‰çŠ¶æ€: æœåŠ¡ç«¯ ${Red_font_prefix}æœªå®‰è£…${Font_color_suffix}"
 fi
 echo
-read -e -p " ÇëÊäÈëÊı×Ö [0-10]:" num
+read -e -p " è¯·è¾“å…¥æ•°å­— [0-10]:" num
 case "$num" in
 	0)
 	Update_Shell
@@ -1090,7 +1090,7 @@ case "$num" in
 	menu_client
 	;;
 	*)
-	echo "ÇëÊäÈëÕıÈ·Êı×Ö [0-10]"
+	echo "è¯·è¾“å…¥æ­£ç¡®æ•°å­— [0-10]"
 	;;
 esac
 }
