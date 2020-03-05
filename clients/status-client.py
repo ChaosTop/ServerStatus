@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
-# Update by ImYrS https://github.com/ImYrS
-# Date 2019.1.21
+# Update by CodeSheng https://github.com/CodeSheng
+# Date 2020.3.5
 
 SERVER = "127.0.0.1"
 PORT = PORT
@@ -121,18 +121,16 @@ class Traffic:
 		return avgrx, avgtx
 
 def liuliang():
-    NET_IN = 0
-    NET_OUT = 0
-    with open('/proc/net/dev') as f:
-        for line in f.readlines():
-            netinfo = re.findall('([^\s]+):[\s]{0,}(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)', line)
-            if netinfo:
-                if netinfo[0][0] == 'lo' or 'tun' in netinfo[0][0] or netinfo[0][1]=='0' or netinfo[0][9]=='0':
-                    continue
-                else:
-                    NET_IN += int(netinfo[0][1])
-                    NET_OUT += int(netinfo[0][9])
-    return NET_IN, NET_OUT
+	NET_IN = 0
+	NET_OUT = 0
+	vnstat=os.popen('vnstat --dumpdb').readlines()
+	for line in vnstat:
+		if line[0:4] == "m;0;":
+			mdata=line.split(";")
+			NET_IN=int(mdata[3])*1024*1024
+			NET_OUT=int(mdata[4])*1024*1024
+			break
+	return NET_IN, NET_OUT
 
 def get_network(ip_version):
 	if(ip_version == 4):

@@ -10,6 +10,7 @@
 
 # 更新说明：
 
+* 2020.03.05, 流量数据获取方式改为vnstat，由显示开机以来流量数据改为显示每月数据，不受重启影响
 * 2019.01.21, 修改样式，效果见 https://status.primeproject.org
 * 2018.08.21, 修改新样式，效果见 https://tz.toyoo.pw  
 * 2017.10.12, 负载Load 优化，并且支持CentOS6系统
@@ -22,7 +23,7 @@
 
 执行下面的代码下载并运行脚本。
 ``` bash
-wget -N --no-check-certificate https://raw.githubusercontent.com/ImYrS/ServerStatus/master/status.sh && chmod +x status.sh
+wget -N --no-check-certificate https://raw.githubusercontent.com/CodeSheng/ServerStatus/master/status.sh && chmod +x status.sh
 ```
 下载脚本后，根据需要安装客户端或者服务端：
 ``` bash

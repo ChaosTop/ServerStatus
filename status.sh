@@ -167,18 +167,18 @@ Installation_dependency(){
 		if [[ ${release} == "centos" ]]; then
 			yum update
 			if [[ -z ${python_status} ]]; then
-				yum install -y python unzip vim make
+				yum install -y python unzip vim make vnstat
 				yum groupinstall "Development Tools" -y
 			else
-				yum install -y unzip vim make
+				yum install -y unzip vim make vnstat
 				yum groupinstall "Development Tools" -y
 			fi
 		else
 			apt-get update
 			if [[ -z ${python_status} ]]; then
-				apt-get install -y python unzip vim build-essential make
+				apt-get install -y python unzip vim build-essential make vnstat
 			else
-				apt-get install -y unzip vim build-essential make
+				apt-get install -y unzip vim build-essential make vnstat
 			fi
 		fi
 	else
@@ -186,12 +186,12 @@ Installation_dependency(){
 		if [[ ${release} == "centos" ]]; then
 			if [[ -z ${python_status} ]]; then
 				yum update
-				yum install -y python
+				yum install -y python vnstat
 			fi
 		else
 			if [[ -z ${python_status} ]]; then
 				apt-get update
-				apt-get install -y python
+				apt-get install -y python vnstat
 			fi
 		fi
 	fi
